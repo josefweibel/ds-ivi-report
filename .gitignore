@@ -1,0 +1,10 @@
+# Output
+*.pdf
+*.log
+*.synctex.gz
+*.fls
+*.aux
+*.fdb_latexmk
+*.toc
+*.blg
+*.bbl
