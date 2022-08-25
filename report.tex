@@ -84,7 +84,7 @@
 \tableofcontents
 \pagebreak
 
-Visualisations are a great way to explore data and underpin statements with facts. While static ones are suitable for most cases, interactive plots allow showing more information in the space and allow the viewer to explore the data on her or his own. These plots can show additional information when the user moves her or his cursor over one of the data points, or they allow the users to compile their graphics as they like. However, creating such interactive visualisations requires detailed understanding to achieve good usability and avoid confusing the viewers. The following pages will outline theoretical aspects along with practical experience gathered while creating two dashboards created for project works in my studies. One visualises different measurements of a solar energy plant to inspect and compare these. While this is rather technical, the other one shows insights after exploring and comparing data of dementia patients with non-dementia people ~\cite{alzheimers_disease_neuroimaging_initiative_adni_2022}.
+Visualisations are a great way to explore data and underpin statements with facts. While static ones are suitable for most cases, interactive plots allow showing more information in the space and allow the viewer to explore the data on their own. These plots can show additional information when the user moves their cursor over one of the data points, or they allow the users to compile their graphics as they like. However, creating such interactive visualisations requires detailed understanding to achieve good usability and avoid confusing the viewers. The following pages will outline theoretical aspects along with practical experience gathered while creating two dashboards created for project works in my studies. One visualises different measurements of a solar energy plant to inspect and compare these. While this is rather technical, the other one shows insights after exploring and comparing data of dementia patients with non-dementia people ~\cite{alzheimers_disease_neuroimaging_initiative_adni_2022}.
 
 \section{Performance}
 
@@ -128,7 +128,64 @@ Loading data only for one month instead of the complete dataset, which consists 
 
 \pagebreak
 \section{Dashboard Design Principles}
-Lorem Ipsum
+
+Dashboards are a convenient way to present data by allowing the viewer to customise the charts to get the information they want. To explore realtime data, dashboards are often used. They are also useful for familiarising oneself with a new dataset. However, because these dashboards often visualise many attributes, they can become too complex and overwhelming for the user. Therefore, it is important to follow some principles when creating a dashboard, and depending on the target audience, use case and data, the features and structure will vary greatly. However, the guidelines for static visualisations also apply to interactive visualisations.
+
+\subsection{Shneiderman's Mantra}
+
+A simple strategy for designing a data retrieval tool is Shneiderman's mantra. These three steps provide the user with a structured way to retrieve the information they seek for.
+
+\begin{quote}
+    Overview first, zoom and filter, then details-on-demand ~\cite{shneiderman_thousand-fold_1997}
+\end{quote}
+
+In order not to overwhelm the user with the vast amount of the entire dataset, them should be presented an \textbf{overview first}. Only the most relevant attributes of the data points should be displayed ~\cite{shneiderman_eyes_1996}. Especially those that answer the user's primary research question. With this first impression, the user is able to understand the most important characterisitics of the data and can now proceed step by step to find the information they are looking for.
+
+After obtaining an overview, the viewer may want to examine certain parts of the data in more detail. By using \textbf{zoom and filter}, it is possible to focus on specific data points and hide irrelevant ones ~\cite{shneiderman_eyes_1996}. Zooming can be done by selecting the desired data directly, or by clicking or scrolling to the area with the data of interest. It should also be possible to use dedicated controls such as buttons to zoom in and out. However, this way of reducing the data only works if the points in the plot are next to each other. In a scatter plot or line chart, it is possible to select the points according to the x- and y-axis by zooming. 
+
+For all other attributes filtering is required for which controls must be available with which the user can make restrictions. The type of controls should be chosen depending on the data type of the attribute to be filtered. A quantitative variable can be limited by a range slider, while dropdowns should be used for qualitative variables. Depending on the meaning of the variable, multiple values should or should not be selectable for the latter. The interface can support the user by indicating the number of remaining results when a certain filter is set. This can be accomplished, for example, by showing the number next to the value in the dropdown or by rendering a small histogram next to a slider showing the distribution of values. Filtering can also mean that complete curves are hidden from the plot. For example, a line chart with several lines can be filtered by removing all but the desired lines. These approaches can reduce the clutter of a visualisation.
+
+Once the user has finally found the points, they can retrieve their \textbf{details-on-demand}. By hovering over or clicking on the data points searched for, the exact values including additional attributes are displayed ~\cite{shneiderman_thousand-fold_1997}. If possible, the filtered and zoomed overview should remain visible in the background so that the user can return and continue with their research without having to adjust the parameters again ~\cite{shneiderman_eyes_1996}. 
+
+In general, a well-usable dashboard records the history of the user's actions and allows the user to undo the last action and also to redo undone actions ~\cite{shneiderman_eyes_1996}. Since dashboards are usually read-only, it would be desirable to have an export function to save the selected data points to a file (e.g. CSV). This file can then be read into a data analysis tool where further evaluations can be undertaken. Furthermore, to avoid the user having to reconfigure zoom levels and filters every time they use the dashboard, it is also helpful if these parameters can be saved in the dashboard.
+
+\subsection{Connecting Plots}
+
+Dashboards with multiple plots based on the same data are not uncommon. Different types of charts can highlight different anomalies in the data, and displaying attributes in different plots keeps them lucid. These related plots should be connected to support the viewer understand the dataset. The connection can be made by linking and brushing the data points in them.
+
+\textbf{Brushing} refers to zooming and filtering the data points. If the number of data points in reduced in one visualisation, the same reduction should be applied to all other visualisations ~\cite{becker_brushing_1987}. If the user zooms into the plot, the same excerpt should become visible on the connected plots, and if the user changes the filter criteria, they should be propagated as well. 
+
+Showing the connection of the same data point in different visualisations is called \textbf{linking} ~\cite{noauthor_linking_nodate}. This can be achieved by highlighting the same data points when one of them is clicked or hovered over by the cursor. This visualises the connection and facilitates the user to rediscover the same data. 
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+    \includegraphics[width=0.2\textwidth]{./dashboard.png}
+    \caption{Initial view of dashboard.}
+    \label{dashboard}
+\end{wrapfigure}
+
+\subsection{Dashboard Example}
+
+To demonstrate these principles, the dashboard with the solar power plant data is used (see Figure \ref{dashboard}). The goal of it is to allow the viewer inspecting the variables that are of interest for them. Therefore, they must first select them from the dropdown at the top of the dashboard. Afterwards, the dashboard shows the values over time in a line chart with a line for each selected variable. There, the user can get an overview of the data for the current month. 
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+    \includegraphics[width=0.2\textwidth]{./dashboard-details.png}
+    \caption{Dashboard showing details-on-demand.}
+    \label{dashboard-details}
+\end{wrapfigure}
+
+Zooming is possible by selecting the desired area by pressing and moving the cursor directly in the plot. The visualisation can be reset to the complete data by double-clicking on it. Lines can be temporarily hidden from the dashboard by clicking on the corresponding attribute name on the right-hand side, or only a specific attribute can be displayed by double-clicking on its name. The data can also be filtered by variables not shown in the plot. Sliders can be used to narrow the range of desired values for energy and irradiation. 
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+    \includegraphics[width=0.2\textwidth]{./dashboard-brushing.png}
+    \caption{Dashboard applying principle of brushing.}
+    \label{dashboard-brushing}
+\end{wrapfigure}
+
+The details of a particular data point can be obtained by pointing the cursor over it. A box will be rendered with the timestamp and the exact values of it. Additional attributes such as energy, irradiation and temperature are also displayed in this tooltip. An example is shown in Figure \ref{dashboard-details}.
+
+This dashboard also supports the comparison of the data after the various cleansing steps to validate the changes. The user can choose the versions of the data they want to compare and a new plot is created for each selected version. As the data come from the same source, they are connected and brushing is applied to the plots. The automatically aligned axes after zooming into the data can be seen in Figure \ref{dashboard-brushing}. Filters and zoom level is propagated to all of them. However, an improvement for the dashboard would be to visually link the data points. 
+
+This dashboard is used by data scientists to familiarise themselves with the data they have received. Once the domain knowlegde and data understanding has been acquired, the dashboard might lose its relevance. Nevertheless, it is reasonable to apply these principles to a temporary dashboard as well.
 
 \pagebreak
 \section{HCI Basics}
