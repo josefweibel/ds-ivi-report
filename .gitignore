@@ -8,3 +8,5 @@
 *.toc
 *.blg
 *.bbl
+*.bcf
+report.run.xml

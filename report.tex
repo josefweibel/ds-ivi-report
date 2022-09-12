@@ -16,6 +16,12 @@
 
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 
+\usepackage{url}
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{bibliography.bib}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
 \usepackage{caption}
 \captionsetup[figure]{font=tiny}
 
@@ -33,8 +39,6 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
-\usepackage{apacite}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -84,7 +88,7 @@
 \tableofcontents
 \pagebreak
 
-Visualisations are a great way to explore data and underpin statements with facts. While static ones are suitable for most cases, interactive plots allow showing more information in the space and allow the viewer to explore the data on their own. These plots can show additional information when the user moves their cursor over one of the data points, or they allow the users to compile their graphics as they like. However, creating such interactive visualisations requires detailed understanding to achieve good usability and avoid confusing the viewers. The following pages will outline theoretical aspects along with practical experience gathered while creating two dashboards created for project works in my studies. One visualises different measurements of a solar energy plant to inspect and compare these. While this is rather technical, the other one shows insights after exploring and comparing data of dementia patients with non-dementia people ~\cite{alzheimers_disease_neuroimaging_initiative_adni_2022}.
+Visualisations are a great way to explore data and underpin statements with facts. While static ones are suitable for most cases, interactive plots allow showing more information in the space and allow the viewer to explore the data on their own. These plots can show additional information when the user moves their cursor over one of the data points, or they allow the users to compile their graphics as they like. However, creating such interactive visualisations requires detailed understanding to achieve good usability and avoid confusing the viewers. The following pages will outline theoretical aspects along with practical experience gathered while creating two dashboards created for project works in my studies. One visualises different measurements of a solar energy plant to inspect and compare these. While this is rather technical, the other one shows insights after exploring and comparing data of dementia patients with non-dementia people ~\parencite{alzheimers_disease_neuroimaging_initiative_adni_2022}.
 
 \section{Performance}
 
@@ -102,7 +106,7 @@ The more data to show, the more likely it is that the visualisation suffers unde
 
 \subsection{Measurements}
 
-The performance of a visualisation can be quantified by using one of many possible metrics. It is either possible to measure specific overall timeframes or go a step further and use instrumentation to measure individual code blocks ~\cite{isaacs_state_2014}. In web development, a tool called \textit{Lighthouse}~\cite{google_lighthouse_2021} has become the way to measure the performance of websites. It can also be applied to pages containing interactive visualisations and measures specific times like the number of seconds until the user can interact with the site (\textit{Time to Interactive}) or to the point when the first pixel is drawn on it (\textit{First Contentful Paint}).
+The performance of a visualisation can be quantified by using one of many possible metrics. It is either possible to measure specific overall timeframes or go a step further and use instrumentation to measure individual code blocks \parencite{isaacs_state_2014}. In web development, a tool called \textit{Lighthouse} \parencite{google_lighthouse_2021} has become the way to measure the performance of websites. It can also be applied to pages containing interactive visualisations and measures specific times like the number of seconds until the user can interact with the site (\textit{Time to Interactive}) or to the point when the first pixel is drawn on it (\textit{First Contentful Paint}).
 
 \begin{wrapfigure}{R}{0.3\textwidth}
     \includegraphics[width=0.3\textwidth]{./lighthouse-1.png}
@@ -113,9 +117,9 @@ The dashboard for the solar energy plant's data suffered severe performance issu
 
 \subsection{Solutions}
 
-The possible solutions for slow visualisations are diverse and depend heavily on the problem. If the creation of a plot is deferred because of heavy computations or complex rendering, then outsourcing these tasks to the \textbf{Graphics Processing Unit (GPU)} can speed them up significantly. However, these improvements depend heavily on the available hardware, which is predominantly out of control for data scientists regarding the viewers' machines. For complex visualisations on websites, technologies like \textit{WebGL} should be used, which makes use of the GPU~\cite{mozilla_webgl_2022}.
+The possible solutions for slow visualisations are diverse and depend heavily on the problem. If the creation of a plot is deferred because of heavy computations or complex rendering, then outsourcing these tasks to the \textbf{Graphics Processing Unit (GPU)} can speed them up significantly. However, these improvements depend heavily on the available hardware, which is predominantly out of control for data scientists regarding the viewers' machines. For complex visualisations on websites, technologies like \textit{WebGL} should be used, which makes use of the GPU \parencite{mozilla_webgl_2022}.
 
-When showing interactive maps, a technique called \textbf{Tiling} is often used to divide the enormous map into small images to be able to load only the images which are currently in the viewport and required for the current zoom level. This strategy can also be used for other visualisations. For the ones on websites, a library called \textit{Leaflet} is available ~\cite{noauthor_leaflet_2022}.
+When showing interactive maps, a technique called \textbf{Tiling} is often used to divide the enormous map into small images to be able to load only the images which are currently in the viewport and required for the current zoom level. This strategy can also be used for other visualisations. For the ones on websites, a library called \textit{Leaflet} is available \parencite{noauthor_leaflet_2022}.
 
 When calculations after user interactions are not too complex, another improvement is avoiding server roundtrips and recalculating directly in the web browser. However, this is not always possible, primarily when a high-level framework like \textit{Dash} is used. If these can not be bypassed, it is advisable to check for data that can be \textbf{cached}. For example, the ADNI dashboard reloaded the source data on every filter change, which delayed the response by some seconds. However, since the data does not change, it could only be loaded once, and the delay could be removed.
 
@@ -136,26 +140,26 @@ Dashboards are a convenient way to present data by allowing the viewer to custom
 A simple strategy for designing a data retrieval tool is Shneiderman's mantra. These three steps provide the user with a structured way to retrieve the information they seek for.
 
 \begin{quote}
-    Overview first, zoom and filter, then details-on-demand ~\cite{shneiderman_thousand-fold_1997}
+    Overview first, zoom and filter, then details-on-demand \parencite{shneiderman_thousand-fold_1997}
 \end{quote}
 
-In order not to overwhelm the user with the vast amount of the entire dataset, them should be presented an \textbf{overview first}. Only the most relevant attributes of the data points should be displayed ~\cite{shneiderman_eyes_1996}. Especially those that answer the user's primary research question. With this first impression, the user is able to understand the most important characterisitics of the data and can now proceed step by step to find the information they are looking for.
+In order not to overwhelm the user with the vast amount of the entire dataset, them should be presented an \textbf{overview first}. Only the most relevant attributes of the data points should be displayed \parencite{shneiderman_eyes_1996}. Especially those that answer the user's primary research question. With this first impression, the user is able to understand the most important characterisitics of the data and can now proceed step by step to find the information they are looking for.
 
-After obtaining an overview, the viewer may want to examine certain parts of the data in more detail. By using \textbf{zoom and filter}, it is possible to focus on specific data points and hide irrelevant ones ~\cite{shneiderman_eyes_1996}. Zooming can be done by selecting the desired data directly, or by clicking or scrolling to the area with the data of interest. It should also be possible to use dedicated controls such as buttons to zoom in and out. However, this way of reducing the data only works if the points in the plot are next to each other. In a scatter plot or line chart, it is possible to select the points according to the x- and y-axis by zooming. 
+After obtaining an overview, the viewer may want to examine certain parts of the data in more detail. By using \textbf{zoom and filter}, it is possible to focus on specific data points and hide irrelevant ones \parencite{shneiderman_eyes_1996}. Zooming can be done by selecting the desired data directly, or by clicking or scrolling to the area with the data of interest. It should also be possible to use dedicated controls such as buttons to zoom in and out. However, this way of reducing the data only works if the points in the plot are next to each other. In a scatter plot or line chart, it is possible to select the points according to the x- and y-axis by zooming. 
 
 For all other attributes filtering is required for which controls must be available with which the user can make restrictions. The type of controls should be chosen depending on the data type of the attribute to be filtered. A quantitative variable can be limited by a range slider, while dropdowns should be used for qualitative variables. Depending on the meaning of the variable, multiple values should or should not be selectable for the latter. The interface can support the user by indicating the number of remaining results when a certain filter is set. This can be accomplished, for example, by showing the number next to the value in the dropdown or by rendering a small histogram next to a slider showing the distribution of values. Filtering can also mean that complete curves are hidden from the plot. For example, a line chart with several lines can be filtered by removing all but the desired lines. These approaches can reduce the clutter of a visualisation.
 
-Once the user has finally found the points, they can retrieve their \textbf{details-on-demand}. By hovering over or clicking on the data points searched for, the exact values including additional attributes are displayed ~\cite{shneiderman_thousand-fold_1997}. If possible, the filtered and zoomed overview should remain visible in the background so that the user can return and continue with their research without having to adjust the parameters again ~\cite{shneiderman_eyes_1996}. 
+Once the user has finally found the points, they can retrieve their \textbf{details-on-demand}. By hovering over or clicking on the data points searched for, the exact values including additional attributes are displayed \parencite{shneiderman_thousand-fold_1997}. If possible, the filtered and zoomed overview should remain visible in the background so that the user can return and continue with their research without having to adjust the parameters again \parencite{shneiderman_eyes_1996}. 
 
-In general, a well-usable dashboard records the history of the user's actions and allows the user to undo the last action and also to redo undone actions ~\cite{shneiderman_eyes_1996}. Since dashboards are usually read-only, it would be desirable to have an export function to save the selected data points to a file (e.g. CSV). This file can then be read into a data analysis tool where further evaluations can be undertaken. Furthermore, to avoid the user having to reconfigure zoom levels and filters every time they use the dashboard, it is also helpful if these parameters can be saved in the dashboard.
+In general, a well-usable dashboard records the history of the user's actions and allows the user to undo the last action and also to redo undone actions \parencite{shneiderman_eyes_1996}. Since dashboards are usually read-only, it would be desirable to have an export function to save the selected data points to a file (e.g. CSV). This file can then be read into a data analysis tool where further evaluations can be undertaken. Furthermore, to avoid the user having to reconfigure zoom levels and filters every time they use the dashboard, it is also helpful if these parameters can be saved in the dashboard.
 
 \subsection{Connecting Plots}
 
 Dashboards with multiple plots based on the same data are not uncommon. Different types of charts can highlight different anomalies in the data, and displaying attributes in different plots keeps them lucid. These related plots should be connected to support the viewer understand the dataset. The connection can be made by linking and brushing the data points in them.
 
-\textbf{Brushing} refers to zooming and filtering the data points. If the number of data points in reduced in one visualisation, the same reduction should be applied to all other visualisations ~\cite{becker_brushing_1987}. If the user zooms into the plot, the same excerpt should become visible on the connected plots, and if the user changes the filter criteria, they should be propagated as well. 
+\textbf{Brushing} refers to zooming and filtering the data points. If the number of data points in reduced in one visualisation, the same reduction should be applied to all other visualisations \parencite{becker_brushing_1987}. If the user zooms into the plot, the same excerpt should become visible on the connected plots, and if the user changes the filter criteria, they should be propagated as well. 
 
-Showing the connection of the same data point in different visualisations is called \textbf{linking} ~\cite{noauthor_linking_nodate}. This can be achieved by highlighting the same data points when one of them is clicked or hovered over by the cursor. This visualises the connection and facilitates the user to rediscover the same data. 
+Showing the connection of the same data point in different visualisations is called \textbf{linking} \parencite{noauthor_linking_nodate}. This can be achieved by highlighting the same data points when one of them is clicked or hovered over by the cursor. This visualises the connection and facilitates the user to rediscover the same data. 
 
 \begin{wrapfigure}{R}{0.2\textwidth}
     \includegraphics[width=0.2\textwidth]{./dashboard.png}
@@ -203,8 +207,7 @@ Lorem Ipsum
 Lorem Ipsum
 
 \pagebreak
-\bibliographystyle{apacite}
-\bibliography{bibliography}
+\printbibliography
 
 
 \end{document}
