@@ -25,6 +25,8 @@
 \usepackage{caption}
 \captionsetup[figure]{font=tiny}
 
+\usepackage{multicol}
+
 \usepackage{wrapfig}
 \usepackage{graphicx}
 \makeatletter
@@ -192,8 +194,61 @@ This dashboard also supports the comparison of the data after the various cleans
 This dashboard is used by data scientists to familiarise themselves with the data they have received. Once the domain knowlegde and data understanding has been acquired, the dashboard might lose its relevance. Nevertheless, it is reasonable to apply these principles to a temporary dashboard as well.
 
 \pagebreak
-\section{HCI Basics}
-Lorem Ipsum
+\section{Human Computer Interaction Basics}
+
+When creating an interactive visualisation, whether it is part of a dashboard or not, the guidelines for static charts should be followed as described by \textcite{weibel_fundamentals_2021}. In addition, there are specific principles for human interactions with computers, and since an interactive visualisation falls into this category, these should also be followed. They ensure that the chart works as the user intends. \textcite{dimara_what_2020} define what an interaction is in data visualisation:
+
+\begin{quote}
+    Interaction for visualization is the interplay between a person and a data interface involving a data-related intent, at least one action from the person and an interface reaction that is perceived as such ~\parencite{dimara_what_2020}.
+\end{quote}
+
+\subsection{Interaction Laws}
+
+Most of these guidelines originate from psychologisists who have studied interaction behaviour and have been able to summarise it into general laws. These laws are not only applied to data visualisation, but more generally to the design of user interfaces. 
+
+\textbf{Miller's Law} states that a human can retain up to seven items (±2) in working memory \parencite{miller_magical_1956}. Contrary to the opinion of many designers, he never concluded that the number of items must be limited to about seven. Instead, he proposed a technique called chunking \parencite{yablonski_millers_2020}. Since the size of an item has no effect on memorability, a large number of items can be divided into meaningful groups to make it easier for the brain to memorise. For example, a phone number or a credit card number can be split up according to a common chunk pattern.
+
+\begin{multicols}{2}
+    \noindent
+    $$0112345813 \rightarrow 011\;234\;58\;13$$
+    $$2222410740360010 \rightarrow 2222\;4107\;4036\;0010$$
+\end{multicols}
+
+\begin{wrapfigure}{R}{0.15\textwidth}
+    \includegraphics[width=0.15\textwidth]{./menu-collapsible.png}
+    \caption{The dashbaord's navigation items are structured hierarchically.}
+    \label{menu-collapsible}
+\end{wrapfigure}
+
+A similar problem is addressed by \textbf{Hick's Law}. According to that, the time it takes humans to make a decision depends on the number of options they have to choose from. The fewer options, the faster the decision is made \parencite{soegaard_hicks_2020}. Reducing the number of options is one possible solution. However, in certain situations it makes more sense to group them in a hierarchical structure to make it easier for the user to find the option they are looking for. In some cases, a user interface may contain features that are only interesting for expierienced users or those with strong knowledge about the data and the tool. To keep the interface simple for normal users, these functions can be hidden by default, and instructed users can show them via a special view or by pressing a special button. 
+
+The number of navigation items in the dashboard for the ADNI data grew steadily during the development phase. To counteract the increasing complexity described by Miller and Hick, the navigation items were restructured into a hierarchy, with items from the second level onwards initially hidden. The first level and each sub-level contains no more than seven options and the user is guided to their choice (see Figure \ref{menu-collapsible}).
+
+\textbf{Fitts' Law} describes the relationship between the time it takes to move a pointer to a given target, with two findings interesting for HCI. It states that the greater the distance between the initial position of the pointer to the position of the target, the longer the pointer takes. The size of the target has also an impact on time. The smaller it is, the longer it takes the user to reach the area, because the smaller it is, the more the movement speed has to be reduced in order not to overshoot the target \parencite{budiu_fittss_2022}. A pointer can be a mouse cursor or a finger for touch input. It could be that with a cursor the target's size has a greater influence than with a finger, as it more difficult to control a mouse than your own hand. 
+
+Optimal user interfaces and thus interactive visualisations ensure that related components are close together and that all clickable areas are large enough to be clicked without having to reduce the pointer's speed too much. For touch input, it is advisable to add extra padding to clickable areas to increase error tolerance, as human fingers might miss the area slightly \parencite{hoober_fitts_2022}.
+
+\begin{wrapfigure}{R}{0.15\textwidth}
+    \includegraphics[width=0.15\textwidth]{./fitts-cursor.png}
+    \caption{Popover is shown for the marker closest to the cursor.}
+    \label{fitts-cursor}
+\end{wrapfigure}
+
+Common charts such as scatter plots, line charts and box plots display the data or parts of it as small markers. Interactive variants of these usually show exact values and additional information when these markers are hovered over, which is not optimal as they are very difficult to reach. A solution to this problem could be to add extra padding around each marker. This can either be a fixed amount, or the free space is distributed evenly among the markers in the area \parencite{mccrocklin_interaction_2015}. However, the first approach is easier to implement but raises a problem with overlapping padding areas. Anyway, the extra padding allows the user to point only near the marker and they do not really need to slow down. In both dashboards, the latter approach was implemented, as shown in a box plot in Figure \ref{fitts-cursor}.
+
+\subsection{Transitions}
+
+But not only the human's action should be optimised. They should also receive an appropriate reaction from the user interface that their action has been received and the action is being processed. This is especially crucical if the result of user's triggered action does not become immediately visible. At least a spinner animation should be shown in such cases (see chapter on performance). The user needs to know if they really triggered the action or if they have to try again. 
+
+In many cases, the user interface changes after an interaction. To help the user understand what is happening and to check that the interface is behaving as intended, animated transitions between the states of the views can be useful. It is important that the animation reflects the transition and that the animation feels natural. If the user has selected an area to zoom in on, the transition to the zoomed area can be made by steadily increasing the size of the selected area until it reaches the size of the chart. In this way, the human can understand that the chart now shows exactly the selected area. 
+
+\subsection{Accessibility}
+
+In Switzerland, every fifth inhabitant is impaired by a disability \parencite{federal_statistical_office_persons_2019}. It is therefore very likely that an interactive visualisation will be used by someone who has problems with it unless special optimisations are made. Colour blindness needs to be taken into account when choosing colours and the visualisation needs to be optimised for screenreaders. This by telling them the function of each interactive component. In web-based implementations, this can be achieved by using the WAI-ARIA framework \parencite{nurthen_wai-aria_2022}.
+
+\subsection{Advanced Interaction Techniques}
+
+For many years now, the computer mouse and touch gestures were the main interaction techniques. However, new and more advanced techniques such as voice input and hand gestures are becoming more popular and might also be used to interact with visualisaions. These offer simplicity to users but might lead to new challenges for data scientists and developers. Virtual reality allows data to be expierienced in 3D, and users can walk through the data. And hand gestures will allow them to select specific data points more precisely. Voice control will amke filtering and zooming easier, but selecting individual data points will be more difficult if they can not be addressed with an identifier.
 
 \pagebreak
 \section{Evaluation}
