@@ -252,10 +252,62 @@ For many years now, the computer mouse and touch gestures were the main interact
 
 \pagebreak
 \section{Evaluation}
-Lorem Ipsum
+
+\begin{wrapfigure}{R}{0.3\textwidth}
+    \includegraphics[width=0.3\textwidth]{./adni-cdr.png}
+    \caption{View in the ADNI dashboard showing distributions of the CDR testscale.}
+    \label{adni-cdr}
+\end{wrapfigure}
+
+Like static data visualisations, interactive ones should be evaluated to verify that they serve the intended purpose in a user-friendly manner. Evaluations can basically be performed in the same way as for static plots and are outlined by \textcite{weibel_fundamentals_2021}. However, they tend to be more extensive because interactivity allows more actions that can be reviewed.
+
+Since an interactive visualisation is not just an image but a software product, the same testing routines apply here as well. All functionality should be tested either manually or using test automation software. In the case of a web application, the visualisation should be tested in all browsers used by the viewers.
+
+\subsection{Conducting an Evaluation}
+
+An evaluation was conducted for the ADNI data dashboard to determine if it is serving its purpose. To do this, evaluation participants were asked to answer five questions for which the dashboard was developed. As they searched for the solutions, their behaviour was observed to identify potential hurdles and problems.
+
+\begin{itemize}
+    \item How many subjects participated in the ADNI study and what are their diagnosises?
+    \item Which CDR subscale correlates most strongly with the diagnosis?
+    \item What is the median value of RAVLT immediate for subjects with CDGLOBAL none?
+    \item What is the correlation between MOCA and GDTOTAL?
+    \item How many subjects transitioned from AD to MCI and from MCI to AD during the study?
+\end{itemize}
+
+\begin{wrapfigure}{R}{0.3\textwidth}
+    \includegraphics[width=0.3\textwidth]{./sankey.png}
+    \caption{Sankey plot showing changes in subject's diagnois during ADNI study.}
+    \label{sankey}
+\end{wrapfigure}
+
+These five tasks cover most parts of the dashboard and involve finding values in different kinds of visualisations. Some of the answers are part of interactive plots, where the searched value will appear only when the mouse is hovered over a specific area. Other results are part of short texts that can be found on the right page and tab. For some questions the answer can be found in several places. For example, the numbers for the last question are listed in a table and also visualised in an interactive Sankey plot (see Figure \ref{sankey}).
+
+Since the target audience for this dashboard consists of data scientists, all participants have knowledge in this area and are familiar with the concepts of distributions and correlations. However, all participants will be introduced into the ADNI data and given necessary domain knowledge as this is required to understand the information on the dashboard.
+
+The evaluation was conducted one at a time with three data scientist students who had never seen the dashboard before. After the introduction, they were given one task at a time. Interestingly, all of them had very different strategies for answering the five questions. One person tried to get an overview of the dashboard first and did not seem to hurry. The others tried to find the answers as quickly as possible. One of them clicked through all navigation items with no apparent strategy. The last person tried to figure out under which navigation item the answer might be located. Depending on their strategy, they took different amounts of information from the dashboard. Nevertheless, all of them were able to answer the questions correctly in adequate time. It took them between 7 and 15 minutes, depending on how they proceeded.
+
+\subsection{Improvements}
+
+By observing the participants as they tried to find the answers, some problems were discovered in the dashboard. Also, interviewing the participants after the evaluation confirmed and revealed further issues they faced during their tasks. Aside from the fact that all of them were able to complete the tasks, these inputs are the most important information provided by such an evaluation.
+
+The navigation items were not understandable enough for all participants. One person had not realised that there were subordinate navigation items which were only shown when clicked on the parent item. There was a small arrow next to it indicating this behaviour. However, this did not seem to be sufficient. The navigation item with the name "Diagnosis Changes" was misleading to everyone, as they assumed it to be the progression of the participants' diagnosis. However, under this item, the impact of each testscale variable on diagnosis change was examined. The actual number of changes was visualised on another page. Adding a link to this page to the expected one or renaming the navigation could solve that issue.
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+    \includegraphics[width=0.2\textwidth]{./info-in-text.png}
+    \caption{Highlighted data in text.}
+    \label{info-in-text}
+\end{wrapfigure}
+
+The evaulation also showed that extracting information from continuous text is not as easy as extracting it from table and visualisations. It might be beneficial to convert the texts in the dashboard into tables listing the data, or at least to highlight the numbers in them by marking them bold, for example (see Figure \ref{info-in-text}). In addition, different visualisations were actaully used to answer the questions. Some also generally preferred tables to charts.
+
+The Sankey plot indicating diagnosis changes was met with controversy. None of the participants needed an introduction to this unconventional plot, but some stated at the end of the evaluation that they would have preferred a simpler visualisation. This shows that even some data scientists prefer the classic visualisation to a specialised one. Finally, the subject of the dashboard prooved difficult to understand. What was desired was a written introduction and an overview for the different test scales. According to one participant, this would have made it easier to get started with the dashboard.
 
 \section{Conclusion}
-Lorem Ipsum
+
+Knowing about the basic design principles and psychological laws is useful to understand how visualisations are perceived by humans. However, once there is an idea how an interactive visualisation should be created, it is often very helpful to create a prototype of the theoretical concept. With such a prototype, it quickly becomes clear whether the idea really works. Then it is also possible to conduct an evaluation with the users of the target audience to verify whether they understand and are able to use the visualisation. The longer one waits with such an evaluation, the more time is wasted in case there are fundamental problems with the visualisation design. Several short iterations of design, implementation and evaluation will ensure a product that end users will love.
+
+Interactive visualisations are a powerful tool to bring complex data understandable for people. But creating them is also complex and many concepts need to be considered when designing such a visualisation. Fortunately, there are several libraries that already apply many of these concepts. Repetitive implementation tasks such as zooming and filtering can be delegated to the libraries. This allows data scientists to focus on the exciting parts of their job and mostly domain-specific questions, such as finding the right chart type for the data.
 
 \pagebreak
 \section{Appendix}
