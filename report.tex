@@ -27,6 +27,8 @@
 
 \usepackage{multicol}
 
+\usepackage{hyperref}
+
 \usepackage{wrapfig}
 \usepackage{graphicx}
 \makeatletter
@@ -46,6 +48,8 @@
 \pagestyle{fancy}
 \fancyfoot[L]{Joseph Weibel}
 \fancyfoot[R]{Interactive Visualization}
+
+\setcounter{tocdepth}{2}
 
 \begin{document}
 \begin{titlepage}
@@ -76,12 +80,7 @@
         Data Science\\
         June 2022
 
-        \vspace{1.0cm}
-
-        \normalsize
-        Github Repository: https://github.com/josefweibel/ds-ivi-report
-
-        \vspace{0.8cm}
+        \vspace{2.0cm}
 
     \end{center}
 \end{titlepage}
@@ -311,7 +310,51 @@ Interactive visualisations are a powerful tool to bring complex data understanda
 
 \pagebreak
 \section{Appendix}
-Lorem Ipsum
+
+\subsection{Digital Companions}
+
+\begin{itemize}
+    \item Report: \url{https://github.com/josefweibel/ds-ivi-report}
+
+    \item ADNI Data Dashboard: \url{https://gitlab.fhnw.ch/chantal.strasser/data-science-challenge-brain-health}
+
+    \item Solar Power Plant Dashboard: \url{https://gitlab.fhnw.ch/ds-pro4d-solar/analysis}
+\end{itemize}
+
+\subsection{Figures}
+
+\subsubsection{Figure 1: Infographic showing process to build an interactive visualisation using web technologies. (own graphic)}
+\includegraphics{./performance.png}
+
+\subsubsection{Figure 2: Lighthouse report for dashboard with all observations visible.}
+\includegraphics{./lighthouse-1.png}
+
+\subsubsection{Figure 3: Lighthouse report for dashboard with only observations of one month visible.}
+\includegraphics{./lighthouse-2.png}
+
+\subsubsection{Figure 4: Initial view of dashboard.}
+\includegraphics{./dashboard.png}
+
+\subsubsection{Figure 5: Dashboard showing details-on-demand.}
+\includegraphics{./dashboard-details.png}
+
+\subsubsection{Figure 6: Dashboard applying principle of brushing.}
+\includegraphics[width=0.9\textwidth]{./dashboard-brushing.png}
+
+\subsubsection{Figure 7: The dashboard's navigation items are structured hierarchically.}
+\includegraphics[width=0.3\textwidth]{./menu-collapsible.png}
+
+\subsubsection{Figure 8: Popover is shown for the marker closest to the cursor.}
+\includegraphics[width=0.6\textwidth]{./fitts-cursor.png}
+
+\subsubsection{Figure 9: View in the ADNI dashboard showing distributions of the CDR testscale.}
+\includegraphics{./adni-cdr.png}
+
+\subsubsection{Figure 10: Sankey plot showing changes in subject's diagnois during ADNI study.}
+\includegraphics{./sankey.png}
+
+\subsubsection{Figure 11: Highlighted data in text.}
+\includegraphics[width=0.4\textwidth]{./info-in-text.png}
 
 \pagebreak
 \printbibliography
